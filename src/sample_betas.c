@@ -2,10 +2,10 @@
 #include <Rmath.h>
 #include <Rdefines.h>
 
-SEXP sample_beta(SEXP n, SEXP pL, SEXP XL, SEXP xL2, SEXP bL, SEXP e, SEXP tau2, SEXP varE, SEXP minAbsBeta)
+SEXP sample_beta(SEXP n, SEXP pL, SEXP XL, SEXP xL2, SEXP bL, SEXP e, SEXP varBj, SEXP varE, SEXP minAbsBeta)
 {
-        double *xj, *pXL, *pxL2, *pbL, *pe, *ptau2;
-	double rhs,c,varBj,sigma2e, smallBeta;
+        double *xj, *pXL, *pxL2, *pbL, *pe, *pvarBj;
+	double rhs,c,sigma2e, smallBeta;
 	
         int j,i, rows, cols;
         SEXP list;
@@ -29,14 +29,13 @@ SEXP sample_beta(SEXP n, SEXP pL, SEXP XL, SEXP xL2, SEXP bL, SEXP e, SEXP tau2,
         PROTECT(e=AS_NUMERIC(e));
         pe=NUMERIC_POINTER(e);
 
-        PROTECT(tau2=AS_NUMERIC(tau2));
-        ptau2=NUMERIC_POINTER(tau2);
+        PROTECT(varBj=AS_NUMERIC(varBj));
+        pvarBj=NUMERIC_POINTER(varBj);
 
         xj=(double *) R_alloc(rows,sizeof(double));
 
         for(j=0; j<cols;j++)
         {
-          varBj=ptau2[j] * sigma2e;
 	  rhs=0;
 	  for(i=0; i<rows; i++)
 	  {
@@ -45,7 +44,7 @@ SEXP sample_beta(SEXP n, SEXP pL, SEXP XL, SEXP xL2, SEXP bL, SEXP e, SEXP tau2,
 	    rhs+=xj[i]*pe[i];
 	  }
 	  rhs=rhs/sigma2e;
-  	  c=pxL2[j]/sigma2e + 1.0/varBj;
+  	  c=pxL2[j]/sigma2e + 1.0/pvarBj[j];
 	  pbL[j]=rhs/c + sqrt(1.0/c)*norm_rand();
 	  
 	  for(i=0; i<rows; i++)

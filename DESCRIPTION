@@ -1,6 +1,6 @@
 Package: BLR
-Version: 1.1
-Date: 2010-03-29
+Version: 1.2
+Date: 2010-08-23
 Title: Bayesian Linear Regression
 Author: Gustavo de los Campos, Paulino Perez Rodriguez,
 Maintainer: Paulino Perez Rodriguez <perpdgo@colpos.mx>
@@ -9,6 +9,6 @@ Description: Bayesian Linear Regression
 LazyLoad: true
 License: GPL-2
 URL: http://www.r-project.org/
-Packaged: 2010-04-01 15:25:45 UTC; PPEREZ
 Repository: CRAN
-Date/Publication: 2010-04-08 06:07:14
+Date/Publication: 2010-08-24 10:47:44
+Packaged: 2010-08-24 00:12:13 UTC; paulino

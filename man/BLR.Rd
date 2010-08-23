@@ -196,7 +196,6 @@ plot(scan('example_varE.dat'),type="o",
 }
 ########################################################################
 #Example 2: Ten fold, Cross validation, environment 1,
-#Be careful, it can take a while
 ########################################################################
 if(FALSE){
 rm(list=ls())
