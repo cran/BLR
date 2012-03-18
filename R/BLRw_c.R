@@ -241,30 +241,30 @@ BLR<-function (y, XF = NULL, XR = NULL, XL = NULL, GF = list(ID = NULL,
         if ((i%%thin == 0)) {
             tmp <- c(varE)
             fileName <- paste(saveAt, "varE", ".dat", sep = "")
-            write(tmp, ncol = length(tmp), file = fileName, append = TRUE, 
+            write(tmp, ncolumns = length(tmp), file = fileName, append = TRUE, 
                 sep = " ")
             if (hasXF) {
                 tmp <- bF
                 fileName <- paste(saveAt, "bF", ".dat", sep = "")
-                write(tmp, ncol = length(tmp), file = fileName, 
+                write(tmp, ncolumns = length(tmp), file = fileName, 
                   append = TRUE, sep = " ")
             }
             if (hasLasso) {
                 tmp <- lambda
                 fileName <- paste(saveAt, "lambda", ".dat", sep = "")
-                write(tmp, ncol = length(tmp), file = fileName, 
+                write(tmp, ncolumns = length(tmp), file = fileName, 
                   append = TRUE, sep = " ")
             }
             if (hasRidge) {
                 tmp <- varBR
                 fileName <- paste(saveAt, "varBR", ".dat", sep = "")
-                write(tmp, ncol = length(tmp), file = fileName, 
+                write(tmp, ncolumns = length(tmp), file = fileName, 
                   append = TRUE, sep = " ")
             }
             if (hasGF) {
                 tmp <- varU
                 fileName <- paste(saveAt, "varU", ".dat", sep = "")
-                write(tmp, ncol = length(tmp), file = fileName, 
+                write(tmp, ncolumns = length(tmp), file = fileName, 
                   append = TRUE, sep = " ")
             }
             if (i >= burnIn) {
@@ -308,24 +308,24 @@ BLR<-function (y, XF = NULL, XR = NULL, XL = NULL, GF = list(ID = NULL,
         if ((i%%thin2 == 0) & (i > burnIn)) {
             tmp <- post_yHat
             fileName <- paste(saveAt, "rmYHat", ".dat", sep = "")
-            write(tmp, ncol = length(tmp), file = fileName, append = TRUE, 
+            write(tmp, ncolumns = length(tmp), file = fileName, append = TRUE, 
                 sep = " ")
             if (hasLasso) {
                 tmp <- post_bL
                 fileName <- paste(saveAt, "rmBL", ".dat", sep = "")
-                write(tmp, ncol = length(tmp), file = fileName, 
+                write(tmp, ncolumns = length(tmp), file = fileName, 
                   append = TRUE, sep = " ")
             }
             if (hasRidge) {
                 tmp <- post_bR
                 fileName <- paste(saveAt, "rmBR", ".dat", sep = "")
-                write(tmp, ncol = length(tmp), file = fileName, 
+                write(tmp, ncolumns = length(tmp), file = fileName, 
                   append = TRUE, sep = " ")
             }
             if (hasGF) {
                 tmp <- post_U
                 fileName <- paste(saveAt, "rmU", ".dat", sep = "")
-                write(tmp, ncol = length(tmp), file = fileName, 
+                write(tmp, ncolumns = length(tmp), file = fileName, 
                   append = TRUE, sep = " ")
             }
         }
@@ -451,16 +451,16 @@ metropLambda<-function (tau2, lambda, shape1 = 1.2, shape2 = 1.2, max = 200, ncp
 .onAttach <- function(library, pkg)
 {
   Rv <- R.Version()
-  if(!exists("getRversion", baseenv()) || (getRversion() < "2.9.0"))
-    stop("This package requires R 2.9.0 or later")
+  if(!exists("getRversion", baseenv()) || (getRversion() < "2.10"))
+    stop("This package requires R 2.10 or later")
   assign(".BLR.home", file.path(library, pkg),
          pos=match("package:BLR", search()))
-  BLR.version <- "1.2 (2010-08-23)"
+  BLR.version <- "1.3 (2012-03-18)"
   assign(".BLR.version", BLR.version, pos=match("package:BLR", search()))
   if(interactive())
   {
-    cat(paste("Package 'BLR', ", BLR.version, ". ",sep=""))
-    cat("Type 'help(BLR)' for summary information\n")
+    packageStartupMessage(paste("Package 'BLR', ", BLR.version, ". ",sep=""),appendLF=TRUE)
+    packageStartupMessage("Type 'help(BLR)' for summary information",appendLF=TRUE)
   }
   invisible()
 }
