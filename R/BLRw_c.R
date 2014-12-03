@@ -451,11 +451,11 @@ metropLambda<-function (tau2, lambda, shape1 = 1.2, shape2 = 1.2, max = 200, ncp
 .onAttach <- function(library, pkg)
 {
   Rv <- R.Version()
-  if(!exists("getRversion", baseenv()) || (getRversion() < "2.10"))
-    stop("This package requires R 2.10 or later")
+  if(!exists("getRversion", baseenv()) || (getRversion() < "3.1.2"))
+    stop("This package requires R 3.1.2 or later")
   assign(".BLR.home", file.path(library, pkg),
          pos=match("package:BLR", search()))
-  BLR.version <- "1.3 (2012-03-18)"
+  BLR.version <- "1.4 (2014-12-03)"
   assign(".BLR.version", BLR.version, pos=match("package:BLR", search()))
   if(interactive())
   {

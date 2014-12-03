@@ -10,3 +10,6 @@ version 1.2 (2010-08-23)
 version 1.3 (2012-03-18)
   minor modifications to build without warnings in R-2.15.0
 
+version 1.4 (2014-12-03)
+  minor modifications to build withou warnings in R-3.1.2
+
