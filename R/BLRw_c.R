@@ -400,9 +400,9 @@ welcome<-function(){
     cat("\n")
     cat("#                                                       #")
     cat("\n")
-    cat("#                    BLR v1.2                           #")
+    cat("#                    BLR v1.5                           #")
     cat("\n")
-    cat("#                   August, 2010                        #")
+    cat("#                   August, 2018                        #")
     cat("\n")
     cat("#          Contact: perpdgo@colpos.mx                   #")
     cat("\n")
@@ -455,7 +455,7 @@ metropLambda<-function (tau2, lambda, shape1 = 1.2, shape2 = 1.2, max = 200, ncp
     stop("This package requires R 3.1.2 or later")
   assign(".BLR.home", file.path(library, pkg),
          pos=match("package:BLR", search()))
-  BLR.version <- "1.4 (2014-12-03)"
+  BLR.version <- "1.5 (2018-08-23)"
   assign(".BLR.version", BLR.version, pos=match("package:BLR", search()))
   if(interactive())
   {

@@ -8,7 +8,7 @@ from a pedigree that traced back many generations.
 This relationship matrix was derived using the
 Browse application of the International Crop Information
 System (ICIS), as described in  
-\url{http://cropwiki.irri.org/icis/index.php/TDM_GMS_Browse} (McLaren \emph{et al.} 2005).
+\url{http://repository.cimmyt.org/xmlui/bitstream/handle/10883/3488/72673.pdf} (McLaren \emph{et al.} 2005).
 
 }
 
