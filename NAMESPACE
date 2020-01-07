@@ -1,5 +1,4 @@
 useDynLib(BLR, .registration=TRUE)
-import(SuppDists)
 
 importFrom("stats", "dbeta", "dchisq", "dexp", "dgamma", "dnorm",
      "model.matrix", "rchisq", "rgamma", "rnorm", "runif", "var",

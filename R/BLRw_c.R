@@ -1,3 +1,54 @@
+
+#Random number generation from Inverse Gaussian Distribution
+#f(x;mu,lambda)=sqrt(lambda/(2*pi*x^3))*exp(-lambda*(x-mu)^2/(2*x*mu^2)),
+#x>0,mu>0,lambda>0
+
+#n: number of observations. If 'length(n) > 1', the length is taken to be the number required.
+#mu: mean, it can be vector, each element must be bigger than 0
+#lambda: shape parameter, it can be a vector each element must be bigger than 0
+
+#Reference:
+#Michael, J., Schucany, W., & Haas, R. (1976). Generating Random Variates Using 
+#Transformations with Multiple Roots. The American Statistician, 30(2), 88-90. 
+#doi:10.2307/2683801
+
+#Added January, 2, 2020
+
+
+rinvGauss=function(n,mu,lambda)
+{
+	#As in the case of normal distribution, check lengths
+	if(length(n)>1) n<-length(n)
+	
+	#Check that mu and lambda are positive
+	if(any(mu<=0)) stop("mu must be positive")
+	if(any(lambda<0)) stop("lambda must be positive")
+	
+	#Check lengths and adjust them recycling
+	if(length(mu)>1 && length(mu)!=n) mu<- rep(mu,length=n)
+        if(length(lambda)>1 && length(lambda)!=n) lambda = rep(lambda,length=n)
+    
+    	#Generate random sample from standard normal
+    	g<-rnorm(n,mean=0,sd=1)
+    
+    	#Transform to  a sample from chi-squared with 1 df
+    	v<-g*g
+    
+    	#Compute roots, equation 5 in reference paper
+    	#see Fortran code below equation (6)
+    	w<-mu*v
+    	cte<-mu/(2*lambda)
+    	sol1<-mu+cte*(w-sqrt(w*(4*lambda+w)))
+    	sol2<-mu*mu/sol1
+    
+    	#Uniform random numbers (0,1)
+    	u<-runif(n)
+    
+    	ifelse(u<mu/(mu+sol1),sol1,sol2)
+    
+}
+
+
 BLR<-function (y, XF = NULL, XR = NULL, XL = NULL, GF = list(ID = NULL, 
     A = NULL), prior = NULL, nIter = 1100, burnIn = 100, thin = 10, 
     thin2 = 1e+10, saveAt = "", minAbsBeta = 1e-09, weights = NULL){
@@ -173,7 +224,7 @@ BLR<-function (y, XF = NULL, XR = NULL, XL = NULL, GF = list(ID = NULL,
             e <- ans[[2]]
             nu <- sqrt(varE) * lambda/abs(bL)
             tmp<-NULL
-            try(tmp <- rinvGauss(n = pL, nu = nu, lambda = lambda2))
+            try(tmp <- rinvGauss(n = pL, mu = nu, lambda = lambda2))
             if(!is.null(tmp))
             {
                if(!any(is.na(sqrt(tmp))))
@@ -396,20 +447,15 @@ BLR<-function (y, XF = NULL, XR = NULL, XL = NULL, GF = list(ID = NULL,
 
 ##################################################################################################
 welcome<-function(){
-    cat("========  Bayesian Regression Coupled with LASSO ========")
-    cat("\n")
-    cat("#                                                       #")
-    cat("\n")
-    cat("#                    BLR v1.5                           #")
-    cat("\n")
-    cat("#                   August, 2018                        #")
-    cat("\n")
-    cat("#          Contact: perpdgo@colpos.mx                   #")
-    cat("\n")
-    cat("#                                                       #")
-    cat("\n")
-    cat("=========================================================")
-    cat("\n")
+    cat("========  Bayesian Regression Coupled with LASSO ========\n")
+    cat("#                                                       #\n")
+    cat("#                    BLR v1.6                           #\n")
+    cat("#                   January, 2020                       #\n")
+    cat("#      Contact:                                         #\n") 
+    cat("#      Gustavo de los Campos, gdeloscampos@gmail.com    #\n")
+    cat("#	Paulino Perez-Rodriguez,perpdgo@colpos.mx        #\n")
+    cat("#                                                       #\n")
+    cat("=========================================================\n")
 }
 ##################################################################################################
 
@@ -455,7 +501,7 @@ metropLambda<-function (tau2, lambda, shape1 = 1.2, shape2 = 1.2, max = 200, ncp
     stop("This package requires R 3.1.2 or later")
   assign(".BLR.home", file.path(library, pkg),
          pos=match("package:BLR", search()))
-  BLR.version <- "1.5 (2018-08-23)"
+  BLR.version <- "1.6 (2020-01-02)"
   assign(".BLR.version", BLR.version, pos=match("package:BLR", search()))
   if(interactive())
   {

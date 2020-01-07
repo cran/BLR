@@ -11,5 +11,12 @@ version 1.3 (2012-03-18)
   minor modifications to build without warnings in R-2.15.0
 
 version 1.4 (2014-12-03)
-  minor modifications to build withou warnings in R-3.1.2
+  minor modifications to build without warnings in R-3.1.2
+
+version 1.5 (2018-08-23)
+  C code for registring routines added  
+
+version 1.6 (2020-01-02)
+  remove dependency from SuppDists package,
+  added rinvGauss function
 
